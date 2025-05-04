@@ -3,7 +3,6 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BarChart } from '@/components/ui/chart';
 
 interface ContentUsageProps {
@@ -127,8 +126,10 @@ const ContentUsage: React.FC<ContentUsageProps> = ({ timeRange }) => {
             <CardTitle>Content by Source</CardTitle>
             <CardDescription>Distribution of content views by platform</CardDescription>
           </CardHeader>
-          <CardContent className="flex items-center justify-center h-80">
-            <BarChart data={sourceData} />
+          <CardContent>
+            <div className="h-[350px]">
+              <BarChart data={sourceData} height={350} />
+            </div>
           </CardContent>
         </Card>
       </div>

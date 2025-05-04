@@ -27,7 +27,22 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
   return (
     <div className="w-full" style={{ height: `${height}px` }}>
       <div className="flex flex-col h-full">
-        <div className="flex-grow flex items-end space-x-1 pb-2">
+        {/* Value labels at the top */}
+        <div className="flex space-x-1 mb-2">
+          {data.labels.map((label, index) => {
+            const value = data.datasets[0].data[index];
+            return (
+              <div key={`value-${label}`} className="flex-1 text-center">
+                <span className="text-xs text-muted-foreground font-medium">
+                  {value}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        
+        {/* Chart bars */}
+        <div className="flex-grow flex items-end space-x-1">
           {data.labels.map((label, index) => {
             const value = data.datasets[0].data[index];
             const percentage = maxValue > 0 ? (value / maxValue) * 100 : 0;
@@ -40,11 +55,6 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
                 key={label} 
                 className="flex-1 flex flex-col items-center"
               >
-                <div className="w-full flex justify-center mb-1">
-                  <span className="text-xs text-muted-foreground font-medium">
-                    {value}
-                  </span>
-                </div>
                 <div 
                   className="w-full rounded-t-md transition-all"
                   style={{ 
@@ -57,9 +67,11 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
             );
           })}
         </div>
+        
+        {/* X-axis labels */}
         <div className="mt-2 flex space-x-1">
           {data.labels.map((label) => (
-            <div key={label} className="flex-1 text-center">
+            <div key={`label-${label}`} className="flex-1 text-center">
               <span className="text-xs text-muted-foreground block truncate" title={label}>
                 {label}
               </span>

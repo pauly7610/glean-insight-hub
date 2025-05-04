@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+
+import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { BarChart } from '@/components/ui/chart';
 import { Badge } from '@/components/ui/badge';
@@ -38,7 +38,7 @@ const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
     { term: "slack channel guidelines", count: 9, users: 7, suggestion: "Create IT documentation" }
   ];
 
-  // Chart data for top searches - updated with better color
+  // Chart data for top searches
   const chartData = {
     labels: topSearches.slice(0, 10).map((search) => search.term),
     datasets: [
@@ -62,8 +62,8 @@ const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-80">
-            <BarChart data={chartData} height={250} />
+          <div className="h-[350px]">
+            <BarChart data={chartData} height={350} />
           </div>
         </CardContent>
       </Card>
@@ -89,7 +89,7 @@ const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
                     <TableCell>{search.term}</TableCell>
                     <TableCell className="text-right">{search.count}</TableCell>
                     <TableCell className="text-right">
-                      <span className={search.growth.startsWith('+') ? 'text-green-500' : 'text-red-500'}>
+                      <span className={search.growth.startsWith('+') ? 'text-green-500' : search.growth === '+0%' ? 'text-gray-500' : 'text-red-500'}>
                         {search.growth}
                       </span>
                     </TableCell>
