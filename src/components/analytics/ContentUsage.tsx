@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -83,8 +84,8 @@ const ContentUsage: React.FC<ContentUsageProps> = ({ timeRange }) => {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="col-span-1 md:col-span-2">
-          <CardHeader>
+        <Card className="col-span-1 md:col-span-2 border-none shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-white dark:from-purple-900/10 dark:to-background">
             <CardTitle>Most Accessed Content</CardTitle>
             <CardDescription>
               Content with highest view counts in the past {timeRange} days
@@ -103,13 +104,15 @@ const ContentUsage: React.FC<ContentUsageProps> = ({ timeRange }) => {
               </TableHeader>
               <TableBody>
                 {popularContent.map((content) => (
-                  <TableRow key={content.name}>
+                  <TableRow key={content.name} className="hover:bg-muted/40 transition-colors">
                     <TableCell className="font-medium">{content.name}</TableCell>
                     <TableCell>{content.source}</TableCell>
                     <TableCell>
-                      <Badge variant={getBadgeVariant(content.type)}>{content.type}</Badge>
+                      <Badge variant={getBadgeVariant(content.type)} className="hover:opacity-80 transition-opacity">
+                        {content.type}
+                      </Badge>
                     </TableCell>
-                    <TableCell className="text-right">{content.views}</TableCell>
+                    <TableCell className="text-right font-medium">{content.views}</TableCell>
                     <TableCell>{content.lastAccessed}</TableCell>
                   </TableRow>
                 ))}
@@ -118,21 +121,21 @@ const ContentUsage: React.FC<ContentUsageProps> = ({ timeRange }) => {
           </CardContent>
         </Card>
 
-        <Card className="col-span-1">
-          <CardHeader>
+        <Card className="col-span-1 border-none shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-white dark:from-purple-900/10 dark:to-background">
             <CardTitle>Content by Source</CardTitle>
             <CardDescription>Distribution of content views by platform</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-[400px]">
-              <BarChart data={sourceData} height={350} />
+          <CardContent className="pt-6">
+            <div className="h-[300px]">
+              <BarChart data={sourceData} height={300} />
             </div>
           </CardContent>
         </Card>
       </div>
 
-      <Card>
-        <CardHeader>
+      <Card className="mt-6 border-none shadow-lg">
+        <CardHeader className="bg-gradient-to-r from-purple-50 to-white dark:from-purple-900/10 dark:to-background">
           <CardTitle>Underutilized Content</CardTitle>
           <CardDescription>
             Documents that haven't been accessed in {timeRange} days or more
@@ -151,15 +154,17 @@ const ContentUsage: React.FC<ContentUsageProps> = ({ timeRange }) => {
             </TableHeader>
             <TableBody>
               {underutilizedContent.map((content) => (
-                <TableRow key={content.name}>
+                <TableRow key={content.name} className="hover:bg-muted/40 transition-colors">
                   <TableCell className="font-medium">{content.name}</TableCell>
                   <TableCell>{content.source}</TableCell>
                   <TableCell>
-                    <Badge variant={getBadgeVariant(content.type)}>{content.type}</Badge>
+                    <Badge variant={getBadgeVariant(content.type)} className="hover:opacity-80 transition-opacity">
+                      {content.type}
+                    </Badge>
                   </TableCell>
-                  <TableCell>{content.lastAccessed}</TableCell>
+                  <TableCell className="text-muted-foreground">{content.lastAccessed}</TableCell>
                   <TableCell>
-                    <Badge variant={getActionBadgeVariant(content.action)}>
+                    <Badge variant={getActionBadgeVariant(content.action)} className="hover:bg-muted/70 transition-colors">
                       {content.action}
                     </Badge>
                   </TableCell>

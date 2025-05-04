@@ -54,23 +54,23 @@ const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
 
   return (
     <>
-      <Card>
-        <CardHeader>
+      <Card className="overflow-hidden border-none shadow-lg">
+        <CardHeader className="bg-gradient-to-r from-purple-50 to-white dark:from-purple-900/10 dark:to-background pb-6">
           <CardTitle>Top Search Queries</CardTitle>
           <CardDescription>
             Most frequent terms searched across your organization in the past {timeRange} days
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="h-[400px]">
-            <BarChart data={chartData} height={350} />
+        <CardContent className="pt-6">
+          <div className="h-[350px]">
+            <BarChart data={chartData} height={300} />
           </div>
         </CardContent>
       </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-        <Card>
-          <CardHeader>
+        <Card className="border-none shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-white dark:from-purple-900/10 dark:to-background">
             <CardTitle>Top Searches</CardTitle>
             <CardDescription>Detailed breakdown of most frequent search terms</CardDescription>
           </CardHeader>
@@ -85,11 +85,11 @@ const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
               </TableHeader>
               <TableBody>
                 {topSearches.map((search) => (
-                  <TableRow key={search.term}>
-                    <TableCell>{search.term}</TableCell>
+                  <TableRow key={search.term} className="hover:bg-muted/40 transition-colors">
+                    <TableCell className="font-medium">{search.term}</TableCell>
                     <TableCell className="text-right">{search.count}</TableCell>
                     <TableCell className="text-right">
-                      <span className={search.growth.startsWith('+') ? 'text-green-500' : search.growth === '+0%' ? 'text-gray-500' : 'text-red-500'}>
+                      <span className={search.growth.startsWith('+') ? 'text-green-500 font-medium' : search.growth === '+0%' ? 'text-gray-500' : 'text-red-500 font-medium'}>
                         {search.growth}
                       </span>
                     </TableCell>
@@ -100,8 +100,8 @@ const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
+        <Card className="border-none shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-white dark:from-purple-900/10 dark:to-background">
             <CardTitle>Zero-Result Searches</CardTitle>
             <CardDescription>Queries that return no results, organized by frequency</CardDescription>
           </CardHeader>
@@ -117,12 +117,12 @@ const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
               </TableHeader>
               <TableBody>
                 {zeroResultSearches.map((search) => (
-                  <TableRow key={search.term}>
-                    <TableCell>{search.term}</TableCell>
+                  <TableRow key={search.term} className="hover:bg-muted/40 transition-colors">
+                    <TableCell className="font-medium">{search.term}</TableCell>
                     <TableCell className="text-right">{search.count}</TableCell>
                     <TableCell className="text-right">{search.users}</TableCell>
                     <TableCell>
-                      <Badge variant="outline" className="font-normal">
+                      <Badge variant="outline" className="font-normal hover:bg-muted/70 transition-colors">
                         {search.suggestion}
                       </Badge>
                     </TableCell>

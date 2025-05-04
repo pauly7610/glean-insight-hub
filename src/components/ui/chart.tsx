@@ -33,7 +33,7 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
             const value = data.datasets[0].data[index];
             return (
               <div key={`value-${label}`} className="flex-1 text-center">
-                <span className="text-xs text-muted-foreground font-medium">
+                <span className="text-xs font-medium text-muted-foreground">
                   {value}
                 </span>
               </div>
@@ -41,8 +41,8 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
           })}
         </div>
         
-        {/* Chart container - gives bars room to display */}
-        <div className="flex-grow flex items-end space-x-1" style={{ minHeight: '60%' }}>
+        {/* Chart container with enhanced visuals */}
+        <div className="flex-grow flex items-end space-x-2" style={{ minHeight: '60%' }}>
           {data.labels.map((label, index) => {
             const value = data.datasets[0].data[index];
             // Calculate height percentage, but ensure we have appropriate minimum height
@@ -57,7 +57,7 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
                 className="flex-1 flex flex-col items-center justify-end h-full"
               >
                 <div 
-                  className="w-full rounded-t-md transition-all"
+                  className="w-full rounded-t-xl transition-all duration-300 hover:opacity-90 shadow-md"
                   style={{ 
                     height: `${percentage}%`,
                     backgroundColor,
@@ -69,15 +69,15 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
           })}
         </div>
         
-        {/* X-axis labels - completely redesigned for better readability */}
-        <div className="mt-4 grid" style={{ gridTemplateColumns: `repeat(${data.labels.length}, minmax(0, 1fr))` }}>
+        {/* X-axis labels with better styling */}
+        <div className="mt-6 grid" style={{ gridTemplateColumns: `repeat(${data.labels.length}, minmax(0, 1fr))` }}>
           {data.labels.map((label) => (
             <div 
               key={`label-${label}`} 
               className="flex justify-center"
             >
               <div 
-                className="text-xs text-muted-foreground max-w-[80px] text-center"
+                className="text-xs text-muted-foreground max-w-[80px] text-center font-medium truncate px-2"
                 title={label} // Show full label on hover
               >
                 {label}

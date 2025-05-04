@@ -20,7 +20,7 @@ const AnalyticsHeader: React.FC<AnalyticsHeaderProps> = ({ timeRange, setTimeRan
     <div>
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Analytics Dashboard</h1>
+          <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-700 to-indigo-500 bg-clip-text text-transparent">Analytics Dashboard</h1>
           <p className="text-muted-foreground mt-1">
             Monitor how your organization is using Glean
           </p>
@@ -28,7 +28,7 @@ const AnalyticsHeader: React.FC<AnalyticsHeaderProps> = ({ timeRange, setTimeRan
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground">Time period:</span>
           <Select value={timeRange} onValueChange={setTimeRange}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] border-purple-200 dark:border-purple-900">
               <SelectValue placeholder="Select period" />
             </SelectTrigger>
             <SelectContent>
@@ -40,9 +40,9 @@ const AnalyticsHeader: React.FC<AnalyticsHeaderProps> = ({ timeRange, setTimeRan
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
         {metrics.map((metric) => (
-          <Card key={metric.label} className="p-4">
+          <Card key={metric.label} className="p-4 border-none shadow-md hover:shadow-lg transition-shadow bg-gradient-to-br from-white to-purple-50/30 dark:from-background dark:to-purple-900/5">
             <div className="flex flex-col">
               <span className="text-sm text-muted-foreground">{metric.label}</span>
               <div className="flex items-baseline gap-2 mt-1">
