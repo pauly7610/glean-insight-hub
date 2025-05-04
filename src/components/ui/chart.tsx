@@ -33,7 +33,7 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
             const value = data.datasets[0].data[index];
             return (
               <div key={`value-${label}`} className="flex-1 text-center">
-                <span className="text-xs font-medium text-muted-foreground">
+                <span className="text-xs font-medium text-text-secondary">
                   {value}
                 </span>
               </div>
@@ -54,30 +54,37 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
             return (
               <div 
                 key={label} 
-                className="flex-1 flex flex-col items-center justify-end h-full"
+                className="flex-1 flex flex-col items-center justify-end h-full group"
               >
                 <div 
-                  className="w-full rounded-t-xl transition-all duration-300 hover:opacity-90 shadow-md"
+                  className="w-full rounded-t-xl transition-all duration-300 group-hover:opacity-90 shadow-md relative"
                   style={{ 
                     height: `${percentage}%`,
-                    backgroundColor,
+                    backgroundColor: 'var(--primary)',
+                    background: `linear-gradient(180deg, ${backgroundColor || 'var(--primary)'} 0%, ${backgroundColor ? (typeof backgroundColor === 'string' ? backgroundColor : backgroundColor[0]) : 'var(--primary)'} 100%)`,
                     minHeight: percentage > 0 ? '8px' : '0'
                   }}
-                />
+                >
+                  <div className="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="text-white text-xs font-medium px-1.5 py-0.5 bg-black/30 rounded-full backdrop-blur-sm">
+                      {value}
+                    </span>
+                  </div>
+                </div>
               </div>
             );
           })}
         </div>
         
         {/* X-axis labels with better styling */}
-        <div className="mt-6 grid" style={{ gridTemplateColumns: `repeat(${data.labels.length}, minmax(0, 1fr))` }}>
+        <div className="mt-4 grid" style={{ gridTemplateColumns: `repeat(${data.labels.length}, minmax(0, 1fr))` }}>
           {data.labels.map((label) => (
             <div 
               key={`label-${label}`} 
               className="flex justify-center"
             >
               <div 
-                className="text-xs text-muted-foreground max-w-[80px] text-center font-medium truncate px-2"
+                className="text-xs text-text-secondary max-w-[80px] text-center font-medium truncate px-2"
                 title={label} // Show full label on hover
               >
                 {label}

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card } from '@/components/ui/card';
+import { ArrowUp, ArrowDown } from 'lucide-react';
 
 interface AnalyticsHeaderProps {
   timeRange: string;
@@ -20,15 +21,15 @@ const AnalyticsHeader: React.FC<AnalyticsHeaderProps> = ({ timeRange, setTimeRan
     <div>
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-700 to-indigo-500 bg-clip-text text-transparent">Analytics Dashboard</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-2xl md:text-3xl font-bold text-text-primary">Analytics Dashboard</h1>
+          <p className="text-text-secondary mt-1">
             Monitor how your organization is using Glean
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">Time period:</span>
+          <span className="text-sm text-text-secondary">Time period:</span>
           <Select value={timeRange} onValueChange={setTimeRange}>
-            <SelectTrigger className="w-[180px] border-purple-200 dark:border-purple-900">
+            <SelectTrigger className="w-[180px] border-primary/20 focus:ring-primary/30 bg-white">
               <SelectValue placeholder="Select period" />
             </SelectTrigger>
             <SelectContent>
@@ -42,14 +43,20 @@ const AnalyticsHeader: React.FC<AnalyticsHeaderProps> = ({ timeRange, setTimeRan
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
         {metrics.map((metric) => (
-          <Card key={metric.label} className="p-4 border-none shadow-md hover:shadow-lg transition-shadow bg-gradient-to-br from-white to-purple-50/30 dark:from-background dark:to-purple-900/5">
+          <Card key={metric.label} className="custom-card group transition-all hover:shadow-[var(--shadow-lg)] border-none">
+            <div className="card-border"></div>
             <div className="flex flex-col">
-              <span className="text-sm text-muted-foreground">{metric.label}</span>
+              <span className="text-sm text-text-secondary">{metric.label}</span>
               <div className="flex items-baseline gap-2 mt-1">
-                <span className="text-2xl font-semibold">{metric.value}</span>
-                <span className={`text-xs font-medium ${metric.positive ? 'text-green-500' : 'text-red-500'}`}>
+                <span className="text-2xl font-semibold text-text-primary">{metric.value}</span>
+                <div className={`stat-trend ${metric.positive ? 'up' : 'down'}`}>
+                  {metric.positive ? (
+                    <ArrowUp className="h-3 w-3 mr-1" />
+                  ) : (
+                    <ArrowDown className="h-3 w-3 mr-1" />
+                  )}
                   {metric.change}
-                </span>
+                </div>
               </div>
             </div>
           </Card>

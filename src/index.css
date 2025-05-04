@@ -1,9 +1,26 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
+    /* Base colors */
+    --primary: #6d5bea;
+    --primary-light: #ece9ff;
+    --secondary: #3a3f4b;
+    --light-gray: #f7f8fa;
+    --mid-gray: #e5e7eb;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --success: #10b981;
+    --success-light: #d1fae5;
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+    --shadow: 0 4px 12px rgba(0,0,0,0.05);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.09);
+    
+    /* Shadcn root variables */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -13,7 +30,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 252 80% 64%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -22,32 +39,25 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 252 100% 97%;
+    --accent-foreground: 252 80% 64%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 252 80% 64%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -61,8 +71,8 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 252 80% 64%;
+    --primary-foreground: 210 40% 98%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -70,8 +80,8 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 252 80% 14%;
+    --accent-foreground: 252 80% 80%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
@@ -96,6 +106,100 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-light-gray text-text-primary;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
+}
+
+@layer components {
+  /* Clean card styling */
+  .custom-card {
+    @apply bg-white rounded-[var(--radius)] shadow-[var(--shadow)] p-6 h-full relative overflow-hidden;
+  }
+  
+  .card-border {
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-purple-400;
+  }
+  
+  /* Stats styling */
+  .stat-trend {
+    @apply inline-flex items-center px-2 py-1 rounded-md text-xs font-medium mt-2;
+  }
+  
+  .stat-trend.up {
+    @apply bg-success-light text-success;
+  }
+  
+  .stat-trend.down {
+    @apply bg-destructive/20 text-destructive;
+  }
+  
+  /* Content item styling */
+  .content-item {
+    @apply flex items-center justify-between py-3 border-b border-mid-gray last:border-b-0;
+  }
+  
+  .content-details {
+    @apply flex items-center gap-3;
+  }
+  
+  .content-icon {
+    @apply w-10 h-10 rounded-lg flex items-center justify-center bg-primary-light text-primary;
+  }
+  
+  /* Button styling */
+  .btn-primary {
+    @apply bg-primary text-white border-none rounded-lg py-2 px-4 text-sm font-medium cursor-pointer 
+           flex items-center gap-1.5 transition-all hover:bg-primary/90;
+  }
+}
+
+/* Define custom colors */
+.bg-light-gray {
+  background-color: var(--light-gray);
+}
+
+.bg-primary-light {
+  background-color: var(--primary-light);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-text-primary {
+  color: var(--text-primary);
+}
+
+.text-text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.bg-success-light {
+  background-color: var(--success-light);
+}
+
+.border-mid-gray {
+  border-color: var(--mid-gray);
+}
+
+/* Utility classes */
+.page-title {
+  @apply text-2xl font-bold text-text-primary;
+}
+
+.page-subtitle {
+  @apply text-text-secondary mt-1 font-normal;
+}
+
+.card-title {
+  @apply text-lg font-semibold text-text-primary;
+}
+
+.card-subtitle {
+  @apply text-text-secondary text-sm mt-0.5;
 }
