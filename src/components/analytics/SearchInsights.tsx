@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { BarChart } from '@/components/ui/chart';
 import { Badge } from '@/components/ui/badge';
+import TrendingSearchTerms from './TrendingSearchTerms';
 
 interface SearchInsightsProps {
   timeRange: string;
@@ -54,19 +54,23 @@ const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
 
   return (
     <>
-      <Card className="overflow-hidden border-none shadow-lg">
-        <CardHeader className="bg-gradient-to-r from-purple-50 to-white dark:from-purple-900/10 dark:to-background pb-6">
-          <CardTitle>Top Search Queries</CardTitle>
-          <CardDescription>
-            Most frequent terms searched across your organization in the past {timeRange} days
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="pt-6">
-          <div className="h-[350px]">
-            <BarChart data={chartData} height={300} />
-          </div>
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="overflow-hidden border-none shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-white dark:from-purple-900/10 dark:to-background pb-6">
+            <CardTitle>Top Search Queries</CardTitle>
+            <CardDescription>
+              Most frequent terms searched across your organization in the past {timeRange} days
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <div className="h-[350px]">
+              <BarChart data={chartData} height={300} />
+            </div>
+          </CardContent>
+        </Card>
+
+        <TrendingSearchTerms timeRange={timeRange} />
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         <Card className="border-none shadow-lg">

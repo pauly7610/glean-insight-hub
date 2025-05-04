@@ -1,3 +1,4 @@
+
 /* Keep only what we need from the original file */
 
 @keyframes logo-spin {
@@ -14,3 +15,25 @@
     animation: logo-spin infinite 20s linear;
   }
 }
+
+/* Search term analysis visualization */
+.search-term-bar {
+  height: 8px;
+  background-color: var(--light-gray);
+  border-radius: 4px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.search-term-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), #a78bfa);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.search-term-item:hover .search-term-fill {
+  background: var(--primary);
+  box-shadow: 0 0 8px rgba(109, 91, 234, 0.3);
+}
+
