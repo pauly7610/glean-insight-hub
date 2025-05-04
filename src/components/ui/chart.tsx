@@ -69,26 +69,21 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
           })}
         </div>
         
-        {/* X-axis labels - improved with better handling for long labels */}
-        <div className="mt-2 flex space-x-1">
-          {data.labels.map((label) => {
-            // Determine if we need to truncate based on label length
-            const shouldRotate = label.length > 12;
-            
-            return (
+        {/* X-axis labels - completely redesigned for better readability */}
+        <div className="mt-4 grid" style={{ gridTemplateColumns: `repeat(${data.labels.length}, minmax(0, 1fr))` }}>
+          {data.labels.map((label) => (
+            <div 
+              key={`label-${label}`} 
+              className="flex justify-center"
+            >
               <div 
-                key={`label-${label}`} 
-                className="flex-1 text-center"
+                className="text-xs text-muted-foreground max-w-[80px] text-center"
+                title={label} // Show full label on hover
               >
-                <span 
-                  className={`text-xs text-muted-foreground inline-block max-w-full ${shouldRotate ? 'transform -rotate-45 origin-top-left translate-y-1 whitespace-nowrap' : 'truncate'}`}
-                  title={label} // Show full label on hover
-                >
-                  {shouldRotate ? label : label.length > 15 ? `${label.substring(0, 12)}...` : label}
-                </span>
+                {label}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -36,20 +36,19 @@ const ContentUsage: React.FC<ContentUsageProps> = ({ timeRange }) => {
     { name: "Deprecated Code Samples", source: "GitHub", lastAccessed: "42 days ago", action: "Archive", type: "Code" }
   ];
 
-  // Source distribution data
+  // Source distribution data - limit to 5 items for better readability
   const sourceData = {
-    labels: ['Google Drive', 'Confluence', 'Slack', 'Notion', 'GitHub', 'Others'],
+    labels: ['Google Drive', 'Confluence', 'Slack', 'Notion', 'GitHub'],
     datasets: [
       {
         label: 'Content Views',
-        data: [35, 25, 15, 12, 8, 5],
+        data: [35, 25, 15, 12, 8],
         backgroundColor: [
           'rgba(155, 135, 245, 0.8)',
           'rgba(126, 105, 171, 0.8)',
           'rgba(110, 89, 165, 0.8)',
           'rgba(214, 188, 250, 0.8)',
           'rgba(242, 252, 226, 0.8)',
-          'rgba(254, 247, 205, 0.8)',
         ],
         borderColor: [
           'rgba(155, 135, 245, 1)',
@@ -57,7 +56,6 @@ const ContentUsage: React.FC<ContentUsageProps> = ({ timeRange }) => {
           'rgba(110, 89, 165, 1)',
           'rgba(214, 188, 250, 1)',
           'rgba(242, 252, 226, 1)',
-          'rgba(254, 247, 205, 1)',
         ],
         borderWidth: 1,
       },
@@ -127,7 +125,7 @@ const ContentUsage: React.FC<ContentUsageProps> = ({ timeRange }) => {
           </CardHeader>
           <CardContent>
             <div className="h-[400px]">
-              <BarChart data={sourceData} height={400} />
+              <BarChart data={sourceData} height={350} />
             </div>
           </CardContent>
         </Card>
