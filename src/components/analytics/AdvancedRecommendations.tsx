@@ -1,87 +1,25 @@
 
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { ArrowRight, TrendingUp, Clock, Users, FileSearch, CheckCircle, ExternalLink } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { FileSearch, Clock, Users, TrendingUp } from 'lucide-react';
+
+import RelatedContentTab from './recommendations/RelatedContentTab';
+import StaleContentTab from './recommendations/StaleContentTab';
+import CrossDepartmentTab from './recommendations/CrossDepartmentTab';
+import TrendingSearchesTab from './recommendations/TrendingSearchesTab';
+import { 
+  relatedContentData, 
+  staleContentData, 
+  crossDeptOpportunitiesData, 
+  trendingSearchesData 
+} from './recommendations/mockData';
 
 interface AdvancedRecommendationsProps {
   timeRange?: string;
 }
 
 const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeRange = '30' }) => {
-  // Mock data for related content suggestions
-  const relatedContent = [
-    {
-      sourceContent: "Product Roadmap Q2",
-      relatedItems: [
-        { title: "Q2 OKRs", accessRate: 78, department: "Product", actionTaken: false },
-        { title: "Engineering Sprint Planning", accessRate: 65, department: "Engineering", actionTaken: false }
-      ]
-    },
-    {
-      sourceContent: "Sales Training Materials",
-      relatedItems: [
-        { title: "Customer Objection Handling", accessRate: 82, department: "Sales", actionTaken: true },
-        { title: "Pricing Strategy", accessRate: 71, department: "Marketing", actionTaken: false }
-      ]
-    },
-    {
-      sourceContent: "Employee Onboarding Guide",
-      relatedItems: [
-        { title: "Company Benefits Overview", accessRate: 92, department: "HR", actionTaken: false },
-        { title: "IT Setup Instructions", accessRate: 88, department: "IT", actionTaken: true }
-      ]
-    }
-  ];
-
-  // Mock data for stale content
-  const staleContent = [
-    { title: "Legacy Product Documentation", lastUpdated: "2023-10-15", accessCount: 3, department: "Product", priority: "high" },
-    { title: "Old Marketing Campaign Guidelines", lastUpdated: "2023-08-22", accessCount: 5, department: "Marketing", priority: "medium" },
-    { title: "Previous Quarter Financial Report", lastUpdated: "2024-01-10", accessCount: 7, department: "Finance", priority: "medium" },
-    { title: "Outdated Sales Scripts", lastUpdated: "2023-11-05", accessCount: 2, department: "Sales", priority: "high" }
-  ];
-
-  // Mock data for cross-departmental opportunities
-  const crossDeptOpportunities = [
-    { 
-      content: "API Documentation", 
-      primaryDept: "Engineering", 
-      targetDept: "Sales", 
-      relevance: "high",
-      relatedSearches: ["technical specs", "API capabilities", "integration options"],
-      actionRequired: "Share with Sales team"
-    },
-    { 
-      content: "Customer Persona Research", 
-      primaryDept: "Marketing", 
-      targetDept: "Product", 
-      relevance: "medium",
-      relatedSearches: ["user needs", "customer profiles", "market segments"],
-      actionRequired: "Use in next product planning" 
-    },
-    { 
-      content: "Pricing Strategy", 
-      primaryDept: "Sales", 
-      targetDept: "Customer Success", 
-      relevance: "high",
-      relatedSearches: ["pricing tiers", "discount policy", "enterprise pricing"],
-      actionRequired: "Schedule cross-team workshop" 
-    }
-  ];
-
-  // Mock data for trending searches
-  const trendingSearches = [
-    { term: "new product launch", increase: "+325%", lastHours: 24, department: "Marketing", actionRequired: "Create FAQ document" },
-    { term: "system outage", increase: "+270%", lastHours: 12, department: "Engineering", actionRequired: "Publish status update" },
-    { term: "quarterly review template", increase: "+180%", lastHours: 36, department: "All", actionRequired: "Update template" },
-    { term: "employee feedback form", increase: "+135%", lastHours: 48, department: "HR", actionRequired: "Create knowledge base article" }
-  ];
-
   return (
     <Card className="border-none shadow-lg">
       <CardHeader className="bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/10 dark:to-background">
@@ -113,166 +51,20 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
             </TabsList>
           </div>
 
-          {/* Related Content Tab */}
-          <TabsContent value="related" className="space-y-4 p-6">
-            {relatedContent.map((item, index) => (
-              <div key={index} className="bg-muted/30 rounded-lg p-4">
-                <h4 className="font-medium mb-2">{item.sourceContent}</h4>
-                <div className="space-y-2">
-                  {item.relatedItems.map((related, idx) => (
-                    <div key={idx} className="flex items-center justify-between bg-background p-3 rounded-md">
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">{related.title}</p>
-                        <p className="text-xs text-muted-foreground">{related.department}</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Badge variant="secondary">
-                          {related.accessRate}% related
-                        </Badge>
-                        {related.actionTaken ? (
-                          <Badge variant="outline" className="bg-green-500/10 text-green-600 border-green-200">
-                            <CheckCircle className="h-3 w-3 mr-1" />
-                            Linked
-                          </Badge>
-                        ) : (
-                          <Button size="sm" variant="outline" className="text-xs h-7">
-                            Link Resources
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-            <div className="text-center pt-2">
-              <Link to="/analytics?tab=content-recommendations" className="text-primary text-sm font-medium flex items-center justify-center hover:underline">
-                View All Related Content
-                <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </div>
+          <TabsContent value="related" className="animate-in fade-in-50 data-[state=inactive]:animate-out data-[state=inactive]:fade-out-0">
+            <RelatedContentTab relatedContent={relatedContentData} />
           </TabsContent>
-
-          {/* Stale Content Tab */}
-          <TabsContent value="stale" className="p-6">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Content Title</TableHead>
-                  <TableHead>Last Updated</TableHead>
-                  <TableHead>Recent Views</TableHead>
-                  <TableHead>Priority</TableHead>
-                  <TableHead className="text-right">Action</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {staleContent.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">{item.title}</TableCell>
-                    <TableCell>{item.lastUpdated}</TableCell>
-                    <TableCell>{item.accessCount}</TableCell>
-                    <TableCell>
-                      <Badge 
-                        variant={item.priority === "high" ? "destructive" : "outline"}
-                        className={item.priority === "medium" ? "bg-amber-500/20 text-amber-700 border-amber-200" : ""}
-                      >
-                        {item.priority === "high" ? "High priority" : "Medium priority"}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
-                        <Button size="sm" variant="outline" className="text-xs h-7">
-                          Update
-                        </Button>
-                        <Button size="sm" variant="outline" className="text-xs h-7 text-red-600 hover:text-red-700">
-                          Archive
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <div className="text-center pt-4">
-              <Link to="/analytics?tab=content-usage" className="text-primary text-sm font-medium flex items-center justify-center hover:underline">
-                View All Stale Content
-                <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </div>
+          
+          <TabsContent value="stale" className="animate-in fade-in-50 data-[state=inactive]:animate-out data-[state=inactive]:fade-out-0">
+            <StaleContentTab staleContent={staleContentData} />
           </TabsContent>
-
-          {/* Cross-Department Tab */}
-          <TabsContent value="cross-dept" className="space-y-4 p-6">
-            {crossDeptOpportunities.map((item, index) => (
-              <div key={index} className="bg-muted/30 rounded-lg p-4">
-                <div className="flex justify-between items-start mb-2">
-                  <div>
-                    <h4 className="font-medium">{item.content}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      <span className="font-medium">{item.primaryDept}</span> → <span className="font-medium">{item.targetDept}</span>
-                    </p>
-                  </div>
-                  <Badge 
-                    variant={item.relevance === "high" ? "default" : "outline"}
-                    className={item.relevance === "high" ? "bg-green-500" : ""}
-                  >
-                    {item.relevance === "high" ? "High relevance" : "Medium relevance"}
-                  </Badge>
-                </div>
-                <div className="bg-background p-3 rounded-md mt-2">
-                  <p className="text-xs font-medium mb-1">{item.targetDept} department searches for:</p>
-                  <div className="flex flex-wrap gap-1">
-                    {item.relatedSearches.map((term, idx) => (
-                      <Badge key={idx} variant="outline" className="text-xs">
-                        {term}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                <div className="mt-3 flex justify-between items-center">
-                  <p className="text-sm font-medium text-primary">Recommended action: {item.actionRequired}</p>
-                  <Button size="sm" className="text-xs h-7">
-                    Take Action <ExternalLink className="ml-1 h-3 w-3" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-            <div className="text-center pt-2">
-              <Link to="/analytics?tab=department-insights" className="text-primary text-sm font-medium flex items-center justify-center hover:underline">
-                View All Cross-Department Opportunities
-                <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </div>
+          
+          <TabsContent value="cross-dept" className="animate-in fade-in-50 data-[state=inactive]:animate-out data-[state=inactive]:fade-out-0">
+            <CrossDepartmentTab crossDeptOpportunities={crossDeptOpportunitiesData} />
           </TabsContent>
-
-          {/* Trending Searches Tab */}
-          <TabsContent value="trending" className="p-6">
-            <div className="space-y-3">
-              {trendingSearches.map((item, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
-                  <div>
-                    <p className="font-medium">"{item.term}"</p>
-                    <p className="text-xs text-muted-foreground">
-                      {item.department} • Last {item.lastHours} hours
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge className="bg-amber-500">
-                      {item.increase}
-                    </Badge>
-                    <Button size="sm" variant="outline" className="text-xs h-7">
-                      {item.actionRequired}
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="text-center pt-4">
-              <Link to="/analytics?tab=search" className="text-primary text-sm font-medium flex items-center justify-center hover:underline">
-                View All Trending Searches
-                <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </div>
+          
+          <TabsContent value="trending" className="animate-in fade-in-50 data-[state=inactive]:animate-out data-[state=inactive]:fade-out-0">
+            <TrendingSearchesTab trendingSearches={trendingSearchesData} />
           </TabsContent>
         </Tabs>
       </CardContent>
