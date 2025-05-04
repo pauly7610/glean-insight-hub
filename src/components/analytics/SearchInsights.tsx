@@ -1,141 +1,39 @@
-import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { BarChart } from '@/components/ui/chart';
-import { Badge } from '@/components/ui/badge';
+
+import React, { useState } from 'react';
+import { Card } from '@/components/ui/card';
 import TrendingSearchTerms from './TrendingSearchTerms';
+import ContentRecommendations from './ContentRecommendations';
+import DepartmentComparison from './DepartmentComparison';
+import AdvancedFilters from './AdvancedFilters';
 
 interface SearchInsightsProps {
   timeRange: string;
 }
 
 const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
-  // Mock data for search queries
-  const topSearches = [
-    { term: "onboarding process", count: 145, growth: "+12%" },
-    { term: "expense policy", count: 132, growth: "+5%" },
-    { term: "quarterly goals", count: 118, growth: "+21%" },
-    { term: "benefits enrollment", count: 103, growth: "-8%" },
-    { term: "product roadmap", count: 97, growth: "+3%" },
-    { term: "hr handbook", count: 89, growth: "+0%" },
-    { term: "meeting notes", count: 76, growth: "-4%" },
-    { term: "vacation policy", count: 72, growth: "+9%" },
-    { term: "security guidelines", count: 68, growth: "+15%" },
-    { term: "marketing assets", count: 65, growth: "-2%" }
-  ];
+  const [filters, setFilters] = useState({
+    dateRange: { from: undefined, to: undefined },
+    department: 'all'
+  });
 
-  // Mock data for zero result searches
-  const zeroResultSearches = [
-    { term: "new product launch date", count: 34, users: 12, suggestion: "Create FAQ doc" },
-    { term: "company retreat", count: 28, users: 19, suggestion: "Add to company calendar" },
-    { term: "performance review template 2024", count: 25, users: 8, suggestion: "Update old template" },
-    { term: "competitor analysis tools", count: 22, users: 5, suggestion: "Create resource doc" },
-    { term: "brand guidelines v3", count: 19, users: 11, suggestion: "Upload to shared drive" },
-    { term: "remote work stipend", count: 17, users: 13, suggestion: "Update policy doc" },
-    { term: "project mercury timeline", count: 15, users: 3, suggestion: "Create project space" },
-    { term: "annual compliance training", count: 13, users: 9, suggestion: "Schedule and document" },
-    { term: "design system components", count: 11, users: 4, suggestion: "Link to design library" },
-    { term: "slack channel guidelines", count: 9, users: 7, suggestion: "Create IT documentation" }
-  ];
-
-  // Chart data for top searches - limit to top 6 for better readability
-  const chartData = {
-    labels: topSearches.slice(0, 6).map((search) => search.term),
-    datasets: [
-      {
-        label: 'Search Count',
-        data: topSearches.slice(0, 6).map((search) => search.count),
-        backgroundColor: '#9b87f5',
-        borderColor: '#7E69AB',
-        borderWidth: 0
-      }
-    ]
+  const handleFilterChange = (newFilters: any) => {
+    setFilters(newFilters);
+    console.log('Filters applied:', newFilters);
   };
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="overflow-hidden border-none shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-white dark:from-purple-900/10 dark:to-background pb-6">
-            <CardTitle>Top Search Queries</CardTitle>
-            <CardDescription>
-              Most frequent terms searched across your organization in the past {timeRange} days
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <div className="h-[350px]">
-              <BarChart data={chartData} height={300} />
-            </div>
-          </CardContent>
-        </Card>
-
+      <div className="mb-4">
+        <AdvancedFilters onFilterChange={handleFilterChange} />
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <TrendingSearchTerms timeRange={timeRange} />
+        <ContentRecommendations timeRange={timeRange} />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-        <Card className="border-none shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-white dark:from-purple-900/10 dark:to-background">
-            <CardTitle>Top Searches</CardTitle>
-            <CardDescription>Detailed breakdown of most frequent search terms</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Search Term</TableHead>
-                  <TableHead className="text-right">Count</TableHead>
-                  <TableHead className="text-right">Trend</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {topSearches.map((search) => (
-                  <TableRow key={search.term} className="hover:bg-muted/40 transition-colors">
-                    <TableCell className="font-medium">{search.term}</TableCell>
-                    <TableCell className="text-right">{search.count}</TableCell>
-                    <TableCell className="text-right">
-                      <span className={search.growth.startsWith('+') ? 'text-green-500 font-medium' : search.growth === '+0%' ? 'text-gray-500' : 'text-red-500 font-medium'}>
-                        {search.growth}
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-
-        <Card className="border-none shadow-lg">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-white dark:from-purple-900/10 dark:to-background">
-            <CardTitle>Zero-Result Searches</CardTitle>
-            <CardDescription>Queries that return no results, organized by frequency</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Search Term</TableHead>
-                  <TableHead className="text-right">Count</TableHead>
-                  <TableHead className="text-right">Users</TableHead>
-                  <TableHead>Suggested Action</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {zeroResultSearches.map((search) => (
-                  <TableRow key={search.term} className="hover:bg-muted/40 transition-colors">
-                    <TableCell className="font-medium">{search.term}</TableCell>
-                    <TableCell className="text-right">{search.count}</TableCell>
-                    <TableCell className="text-right">{search.users}</TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className="font-normal hover:bg-muted/70 transition-colors">
-                        {search.suggestion}
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+      <div className="mt-6">
+        <DepartmentComparison timeRange={timeRange} />
       </div>
     </>
   );
