@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { BarChart, Users, ArrowRight, ArrowUp } from 'lucide-react';
+import { BarChart, Users, ArrowRight, ArrowUp, BrainCircuit, FileSearch } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Index = () => {
@@ -71,66 +70,52 @@ const Index = () => {
           <div className="card-border"></div>
           
           <div className="mb-5">
-            <h3 className="card-title">Content Usage</h3>
-            <p className="card-subtitle">Most accessed this week</p>
+            <div className="flex items-center gap-2">
+              <BrainCircuit className="h-5 w-5 text-primary" />
+              <h3 className="card-title">AI-Powered Insights</h3>
+            </div>
+            <p className="card-subtitle">Automatically detected patterns and anomalies</p>
           </div>
           
           <div className="content-list">
             <div className="content-item">
               <div className="content-details">
-                <div className="content-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
-                    <polyline points="13 2 13 9 20 9"/>
-                  </svg>
+                <div className="content-icon bg-primary/10 text-primary rounded-full p-1">
+                  <ArrowUp className="h-3.5 w-3.5" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-text-primary">Company Handbook 2024</p>
-                  <p className="text-xs text-text-secondary">Google Drive • PDF</p>
+                  <p className="text-sm font-medium text-text-primary">Search volume spike</p>
+                  <p className="text-xs text-text-secondary">Engineering (35% increase)</p>
                 </div>
               </div>
-              <div className="text-sm text-text-secondary">432 views</div>
+              <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
+                New
+              </Badge>
             </div>
             
             <div className="content-item">
               <div className="content-details">
-                <div className="content-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
-                    <line x1="16" y1="13" x2="8" y2="13"/>
-                    <line x1="16" y1="17" x2="8" y2="17"/>
-                    <polyline points="10 9 9 9 8 9"/>
+                <div className="content-icon bg-amber-500/10 text-amber-500 rounded-full p-1">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-text-primary">Q1 OKRs</p>
-                  <p className="text-xs text-text-secondary">Notion • Document</p>
+                  <p className="text-sm font-medium text-text-primary">Knowledge gap detected</p>
+                  <p className="text-xs text-text-secondary">Sales (Onboarding procedures)</p>
                 </div>
               </div>
-              <div className="text-sm text-text-secondary">387 views</div>
-            </div>
-            
-            <div className="content-item">
-              <div className="content-details">
-                <div className="content-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                    <polyline points="9 22 9 12 15 12 15 22"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-text-primary">Product Roadmap</p>
-                  <p className="text-xs text-text-secondary">Confluence • Wiki</p>
-                </div>
-              </div>
-              <div className="text-sm text-text-secondary">356 views</div>
+              <Badge variant="destructive">
+                High Priority
+              </Badge>
             </div>
           </div>
           
           <div className="mt-4 pt-4 border-t border-mid-gray">
-            <Link to="/analytics" className="text-primary text-sm font-medium flex items-center justify-center hover:underline">
-              View All Content
+            <Link to="/analytics?tab=ai-insights" className="text-primary text-sm font-medium flex items-center justify-center hover:underline">
+              View All AI Insights
               <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           </div>
@@ -140,47 +125,50 @@ const Index = () => {
           <div className="card-border"></div>
           
           <div className="mb-5">
-            <h3 className="card-title">Department Activity</h3>
-            <p className="card-subtitle">User engagement by department</p>
+            <div className="flex items-center gap-2">
+              <FileSearch className="h-5 w-5 text-primary" />
+              <h3 className="card-title">Content Gap Analysis</h3>
+            </div>
+            <p className="card-subtitle">Top searches with missing content</p>
           </div>
           
-          <div>
+          <div className="content-list">
             <div className="content-item">
-              <div className="flex items-center">
-                <Users className="h-4 w-4 mr-2 text-primary" />
-                <p className="text-sm font-medium text-text-primary">Engineering</p>
+              <div className="content-details">
+                <div className="content-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-text-primary">onboarding process sales team</p>
+                  <p className="text-xs text-text-secondary">78 searches • Trending</p>
+                </div>
               </div>
-              <div className="text-sm text-text-primary">87 / 95</div>
+              <div className="text-xs text-green-600 font-medium">Create New</div>
             </div>
             
             <div className="content-item">
-              <div className="flex items-center">
-                <Users className="h-4 w-4 mr-2 text-primary" />
-                <p className="text-sm font-medium text-text-primary">Marketing</p>
+              <div className="content-details">
+                <div className="content-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-text-primary">quarterly tax filing procedure</p>
+                  <p className="text-xs text-text-secondary">65 searches • Trending</p>
+                </div>
               </div>
-              <div className="text-sm text-text-primary">45 / 52</div>
-            </div>
-            
-            <div className="content-item">
-              <div className="flex items-center">
-                <Users className="h-4 w-4 mr-2 text-primary" />
-                <p className="text-sm font-medium text-text-primary">Sales</p>
-              </div>
-              <div className="text-sm text-text-primary">63 / 70</div>
-            </div>
-            
-            <div className="content-item">
-              <div className="flex items-center">
-                <Users className="h-4 w-4 mr-2 text-primary" />
-                <p className="text-sm font-medium text-text-primary">Finance</p>
-              </div>
-              <div className="text-sm text-text-primary">18 / 20</div>
+              <div className="text-xs text-blue-600 font-medium">Update</div>
             </div>
           </div>
           
           <div className="mt-4 pt-4 border-t border-mid-gray">
-            <Link to="/analytics" className="text-primary text-sm font-medium flex items-center justify-center hover:underline">
-              View All Departments
+            <Link to="/analytics?tab=content-gaps" className="text-primary text-sm font-medium flex items-center justify-center hover:underline">
+              View All Content Gaps
               <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           </div>

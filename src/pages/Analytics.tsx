@@ -9,6 +9,8 @@ import ContentUsage from '@/components/analytics/ContentUsage';
 import UserEngagement from '@/components/analytics/UserEngagement';
 import AnalyticsHeader from '@/components/analytics/AnalyticsHeader';
 import ReportExporter from '@/components/analytics/ReportExporter';
+import AIPoweredInsights from '@/components/analytics/AIPoweredInsights';
+import ContentGapAnalysis from '@/components/analytics/ContentGapAnalysis';
 
 const Analytics = () => {
   const [timeRange, setTimeRange] = useState('30');
@@ -28,6 +30,8 @@ const Analytics = () => {
             <TabsTrigger value="search" className="rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-md transition-all">Search Insights</TabsTrigger>
             <TabsTrigger value="content" className="rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-md transition-all">Content Usage</TabsTrigger>
             <TabsTrigger value="users" className="rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-md transition-all">User Engagement</TabsTrigger>
+            <TabsTrigger value="ai-insights" className="rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-md transition-all">AI Insights</TabsTrigger>
+            <TabsTrigger value="content-gaps" className="rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-md transition-all">Content Gaps</TabsTrigger>
           </TabsList>
           
           <div className="flex gap-2">
@@ -45,6 +49,14 @@ const Analytics = () => {
         
         <TabsContent value="users" className="space-y-6 animate-in fade-in-50 data-[state=inactive]:animate-out data-[state=inactive]:fade-out-0">
           <UserEngagement timeRange={timeRange} />
+        </TabsContent>
+        
+        <TabsContent value="ai-insights" className="space-y-6 animate-in fade-in-50 data-[state=inactive]:animate-out data-[state=inactive]:fade-out-0">
+          <AIPoweredInsights timeRange={timeRange} />
+        </TabsContent>
+        
+        <TabsContent value="content-gaps" className="space-y-6 animate-in fade-in-50 data-[state=inactive]:animate-out data-[state=inactive]:fade-out-0">
+          <ContentGapAnalysis timeRange={timeRange} />
         </TabsContent>
       </Tabs>
     </div>
