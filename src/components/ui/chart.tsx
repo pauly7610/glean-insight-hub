@@ -41,10 +41,11 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
           })}
         </div>
         
-        {/* Chart bars */}
-        <div className="flex-grow flex items-end space-x-1">
+        {/* Chart container - gives bars room to display */}
+        <div className="flex-grow flex items-end space-x-1" style={{ minHeight: '60%' }}>
           {data.labels.map((label, index) => {
             const value = data.datasets[0].data[index];
+            // Calculate height percentage, but ensure we have appropriate minimum height
             const percentage = maxValue > 0 ? (value / maxValue) * 100 : 0;
             const backgroundColor = Array.isArray(data.datasets[0].backgroundColor)
               ? data.datasets[0].backgroundColor[index]
@@ -53,14 +54,14 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
             return (
               <div 
                 key={label} 
-                className="flex-1 flex flex-col items-center"
+                className="flex-1 flex flex-col items-center justify-end h-full"
               >
                 <div 
                   className="w-full rounded-t-md transition-all"
                   style={{ 
-                    height: `${Math.max(percentage, 2)}%`,
+                    height: `${percentage}%`,
                     backgroundColor,
-                    minHeight: '4px'
+                    minHeight: percentage > 0 ? '8px' : '0'
                   }}
                 />
               </div>

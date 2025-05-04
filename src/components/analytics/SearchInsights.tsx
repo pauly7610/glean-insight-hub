@@ -62,13 +62,13 @@ const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-[350px]">
-            <BarChart data={chartData} height={350} />
+          <div className="h-[400px]">
+            <BarChart data={chartData} height={400} />
           </div>
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         <Card>
           <CardHeader>
             <CardTitle>Top Searches</CardTitle>

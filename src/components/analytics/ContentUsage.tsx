@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -127,8 +126,8 @@ const ContentUsage: React.FC<ContentUsageProps> = ({ timeRange }) => {
             <CardDescription>Distribution of content views by platform</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[350px]">
-              <BarChart data={sourceData} height={350} />
+            <div className="h-[400px]">
+              <BarChart data={sourceData} height={400} />
             </div>
           </CardContent>
         </Card>
