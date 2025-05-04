@@ -1,0 +1,15 @@
+
+@layer components {
+  /* Stats styling */
+  .stat-trend {
+    @apply inline-flex items-center px-2 py-1 rounded-md text-xs font-medium mt-2;
+  }
+  
+  .stat-trend.up {
+    @apply bg-success-light text-success;
+  }
+  
+  .stat-trend.down {
+    @apply bg-destructive/20 text-destructive;
+  }
+}

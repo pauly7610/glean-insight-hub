@@ -1,0 +1,16 @@
+
+@layer components {
+  /* Clean card styling */
+  .custom-card {
+    @apply bg-white rounded-[var(--radius)] shadow-[var(--shadow)] p-6 h-full relative overflow-hidden;
+  }
+  
+  .card-border {
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-purple-400;
+  }
+  
+  /* Dark mode specific classes */
+  .dark .custom-card {
+    @apply bg-[#221F26] shadow-[0_4px_12px_rgba(0,0,0,0.2)];
+  }
+}

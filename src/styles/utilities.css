@@ -1,0 +1,50 @@
+
+/* Define custom colors */
+.bg-light-gray {
+  background-color: var(--light-gray);
+}
+
+.bg-primary-light {
+  background-color: var(--primary-light);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-text-primary {
+  color: var(--text-primary);
+}
+
+.text-text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.bg-success-light {
+  background-color: var(--success-light);
+}
+
+.border-mid-gray {
+  border-color: var(--mid-gray);
+}
+
+/* Utility classes */
+.page-title {
+  @apply text-2xl font-bold text-text-primary;
+}
+
+.page-subtitle {
+  @apply text-text-secondary mt-1 font-normal;
+}
+
+.card-title {
+  @apply text-lg font-semibold text-text-primary;
+}
+
+.card-subtitle {
+  @apply text-text-secondary text-sm mt-0.5;
+}

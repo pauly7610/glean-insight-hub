@@ -1,0 +1,20 @@
+
+@layer components {
+  /* Content item styling */
+  .content-item {
+    @apply flex items-center justify-between py-3 border-b border-mid-gray last:border-b-0;
+  }
+  
+  .content-details {
+    @apply flex items-center gap-3;
+  }
+  
+  .content-icon {
+    @apply w-10 h-10 rounded-lg flex items-center justify-center bg-primary-light text-primary;
+  }
+  
+  /* Dark mode specific classes */
+  .dark .content-icon {
+    @apply bg-accent text-accent-foreground;
+  }
+}
