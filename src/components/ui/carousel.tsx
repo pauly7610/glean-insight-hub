@@ -137,7 +137,7 @@ const Carousel = React.forwardRef<
         <div
           ref={ref}
           onKeyDownCapture={handleKeyDown}
-          className={cn("relative", className)}
+          className={cn("carousel-container", className)}
           role="region"
           aria-roledescription="carousel"
           {...props}
@@ -161,7 +161,7 @@ const CarouselContent = React.forwardRef<
       <div
         ref={ref}
         className={cn(
-          "flex",
+          "flex carousel-content",
           orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
           className
         )}
@@ -184,7 +184,7 @@ const CarouselItem = React.forwardRef<
       role="group"
       aria-roledescription="slide"
       className={cn(
-        "min-w-0 shrink-0 grow-0 basis-full",
+        "min-w-0 shrink-0 grow-0 basis-full carousel-item",
         orientation === "horizontal" ? "pl-4" : "pt-4",
         className
       )}
@@ -207,10 +207,10 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute h-8 w-8 rounded-full",
+        "carousel-nav-button",
         orientation === "horizontal"
           ? isMobile 
-            ? "left-1 top-1/2 -translate-y-1/2 bg-background/70 hover:bg-background/90" 
+            ? "absolute left-1 top-1/2 -translate-y-1/2" 
             : "-left-12 top-1/2 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         className
@@ -239,10 +239,10 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute h-8 w-8 rounded-full",
+        "carousel-nav-button",
         orientation === "horizontal"
           ? isMobile 
-            ? "right-1 top-1/2 -translate-y-1/2 bg-background/70 hover:bg-background/90" 
+            ? "absolute right-1 top-1/2 -translate-y-1/2" 
             : "-right-12 top-1/2 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         className

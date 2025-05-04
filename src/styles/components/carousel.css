@@ -15,7 +15,7 @@
   /* Mobile-specific styles */
   @media (max-width: 768px) {
     .carousel-nav-button {
-      @apply opacity-70 hover:opacity-100;
+      @apply opacity-70 hover:opacity-100 z-10;
     }
     
     .carousel-content {

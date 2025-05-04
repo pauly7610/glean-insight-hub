@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FileSearch, Clock, Users, TrendingUp } from 'lucide-react';
@@ -30,6 +30,23 @@ interface AdvancedRecommendationsProps {
 const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeRange = '30' }) => {
   const isMobile = useIsMobile();
   const [activeTab, setActiveTab] = React.useState('related');
+  const tabIndicatorRef = useRef<HTMLDivElement>(null);
+  const tabsContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Update tab indicator position based on active tab
+  useEffect(() => {
+    if (isMobile && tabIndicatorRef.current && tabsContainerRef.current) {
+      const activeTabElement = tabsContainerRef.current.querySelector(`[data-value="${activeTab}"]`);
+      
+      if (activeTabElement) {
+        const tabLeft = (activeTabElement as HTMLElement).offsetLeft;
+        const tabWidth = (activeTabElement as HTMLElement).offsetWidth;
+        
+        tabIndicatorRef.current.style.width = `${tabWidth}px`;
+        tabIndicatorRef.current.style.transform = `translateX(${tabLeft}px)`;
+      }
+    }
+  }, [activeTab, isMobile]);
   
   return (
     <Card className="border-none shadow-lg">
@@ -47,11 +64,12 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
           onValueChange={setActiveTab}
         >
           {isMobile ? (
-            <div className="relative">
+            <div className="relative" ref={tabsContainerRef}>
               <Carousel
                 opts={{
                   align: 'start',
                   loop: false,
+                  dragFree: true
                 }}
               >
                 <CarouselContent className="px-4 py-2">
@@ -59,7 +77,8 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
                     <TabsTrigger 
                       value="related" 
                       onClick={() => setActiveTab('related')}
-                      className={`data-[state=active]:bg-background flex items-center ${activeTab === 'related' ? 'border-b-2 border-primary' : ''}`}
+                      className="data-[state=active]:bg-background flex items-center"
+                      data-value="related"
                     >
                       <FileSearch className="h-4 w-4 mr-2" />
                       Related
@@ -69,7 +88,8 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
                     <TabsTrigger 
                       value="stale" 
                       onClick={() => setActiveTab('stale')}
-                      className={`data-[state=active]:bg-background flex items-center ${activeTab === 'stale' ? 'border-b-2 border-primary' : ''}`}
+                      className="data-[state=active]:bg-background flex items-center"
+                      data-value="stale"
                     >
                       <Clock className="h-4 w-4 mr-2" />
                       Stale
@@ -79,7 +99,8 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
                     <TabsTrigger 
                       value="cross-dept" 
                       onClick={() => setActiveTab('cross-dept')}
-                      className={`data-[state=active]:bg-background flex items-center ${activeTab === 'cross-dept' ? 'border-b-2 border-primary' : ''}`}
+                      className="data-[state=active]:bg-background flex items-center"
+                      data-value="cross-dept"
                     >
                       <Users className="h-4 w-4 mr-2" />
                       Cross-Dept
@@ -89,16 +110,16 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
                     <TabsTrigger 
                       value="trending" 
                       onClick={() => setActiveTab('trending')}
-                      className={`data-[state=active]:bg-background flex items-center ${activeTab === 'trending' ? 'border-b-2 border-primary' : ''}`}
+                      className="data-[state=active]:bg-background flex items-center"
+                      data-value="trending"
                     >
                       <TrendingUp className="h-4 w-4 mr-2" />
                       Trending
                     </TabsTrigger>
                   </CarouselItem>
                 </CarouselContent>
-                <CarouselPrevious className="hidden md:flex" />
-                <CarouselNext className="hidden md:flex" />
               </Carousel>
+              <div className="carousel-tab-indicator" ref={tabIndicatorRef} />
             </div>
           ) : (
             <div className="px-6 pt-2 border-b">
