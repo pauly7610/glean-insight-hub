@@ -11,7 +11,7 @@ import { DateRange } from 'react-day-picker';
 
 interface AdvancedFiltersProps {
   onFilterChange: (filters: {
-    dateRange: { from: Date | undefined; to: Date | undefined };
+    dateRange: DateRange;
     department: string;
   }) => void;
 }

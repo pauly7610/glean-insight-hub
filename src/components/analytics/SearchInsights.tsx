@@ -12,8 +12,11 @@ interface SearchInsightsProps {
 }
 
 const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
-  const [filters, setFilters] = useState({
-    dateRange: { from: undefined, to: undefined } as DateRange,
+  const [filters, setFilters] = useState<{
+    dateRange: DateRange;
+    department: string;
+  }>({
+    dateRange: { from: undefined, to: undefined },
     department: 'all'
   });
 
