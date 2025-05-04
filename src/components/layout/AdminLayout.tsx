@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { 
   BarChart, 
@@ -27,6 +27,8 @@ interface AdminLayoutProps {
 }
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
+  const location = useLocation();
+  
   const navItems = [
     { name: "Dashboard", path: "/", icon: <Search className="h-5 w-5" /> },
     { name: "Analytics", path: "/analytics", icon: <BarChart className="h-5 w-5" /> },
@@ -40,7 +42,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       <header className="bg-white border-b">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center">
-            <div className="text-xl font-bold mr-8">Glean Admin</div>
+            <div className="text-xl font-bold mr-8 text-[#9b87f5]">Glean Admin</div>
             
             <nav className="hidden md:flex space-x-4">
               {navItems.map((item) => (
@@ -49,7 +51,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                   to={item.path} 
                   className={cn(
                     "px-3 py-2 rounded-md text-sm font-medium flex items-center",
-                    item.path === window.location.pathname
+                    item.path === location.pathname
                       ? "bg-gray-100 text-gray-900"
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   )}

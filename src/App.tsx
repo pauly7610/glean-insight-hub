@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Analytics from "./pages/Analytics";
+import Users from "./pages/Users";
+import Settings from "./pages/Settings";
 import AdminLayout from "./components/layout/AdminLayout";
 
 const queryClient = new QueryClient();
@@ -20,6 +22,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<AdminLayout><Index /></AdminLayout>} />
           <Route path="/analytics" element={<AdminLayout><Analytics /></AdminLayout>} />
+          <Route path="/users" element={<AdminLayout><Users /></AdminLayout>} />
+          <Route path="/settings" element={<AdminLayout><Settings /></AdminLayout>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

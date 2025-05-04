@@ -22,14 +22,17 @@ interface BarChartProps {
 // A visual bar chart component that renders based on the data provided
 export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
   // Find the maximum value to scale the bars correctly
-  const maxValue = Math.max(...data.datasets[0].data);
+  const maxValue = Math.max(...data.datasets.flatMap(dataset => dataset.data));
   
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="flex-grow flex items-end space-x-2">
+      <div className="flex-grow flex items-end space-x-2" style={{ minHeight: '200px' }}>
         {data.labels.map((label, index) => {
           const value = data.datasets[0].data[index];
-          const percentage = (value / maxValue) * 100;
+          const percentage = maxValue > 0 ? (value / maxValue) * 100 : 0;
+          const backgroundColor = Array.isArray(data.datasets[0].backgroundColor)
+            ? data.datasets[0].backgroundColor[index]
+            : data.datasets[0].backgroundColor;
           
           return (
             <div 
@@ -42,10 +45,11 @@ export const BarChart: React.FC<BarChartProps> = ({ data, height = 300 }) => {
                 </span>
               </div>
               <div 
-                className="w-full bg-primary/60 hover:bg-primary/80 transition-colors rounded-t-md"
+                className="w-full rounded-t-md transition-all"
                 style={{ 
                   height: `${percentage}%`,
-                  minHeight: '8px'
+                  minHeight: '8px',
+                  backgroundColor
                 }}
               />
             </div>
