@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Chart } from 'lucide-react';
+import { BarChart } from '@/components/ui/chart';
 
 interface ContentUsageProps {
   timeRange: string;
@@ -127,15 +127,8 @@ const ContentUsage: React.FC<ContentUsageProps> = ({ timeRange }) => {
             <CardTitle>Content by Source</CardTitle>
             <CardDescription>Distribution of content views by platform</CardDescription>
           </CardHeader>
-          <CardContent className="flex items-center justify-center">
-            {/* We'll use a placeholder for the pie chart since we need to implement a real chart component */}
-            <div className="h-[220px] w-[220px] relative flex items-center justify-center">
-              <Chart className="h-full w-full text-muted-foreground/20" />
-              <div className="absolute text-center">
-                <p className="text-sm text-muted-foreground">Source distribution</p>
-                <p className="text-lg font-medium">View detailed chart</p>
-              </div>
-            </div>
+          <CardContent className="flex items-center justify-center h-80">
+            <BarChart data={sourceData} />
           </CardContent>
         </Card>
       </div>
