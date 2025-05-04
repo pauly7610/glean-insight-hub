@@ -1,73 +1,59 @@
-# Welcome to your Lovable project
 
-## Project info
+# Glean Admin Dashboard
 
-**URL**: https://lovable.dev/projects/80a1c39c-fa88-4704-bd92-ea6e1fa63c6e
+An elegant and responsive admin dashboard with dark mode support for enterprise search analytics.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Modern UI Design**: Clean, responsive interface built with React, Tailwind CSS, and shadcn/ui
+- **Dark Mode Support**: Toggle between light and dark themes with automatic system preference detection
+- **Analytics Dashboard**: Visualize search analytics, user engagement metrics, and content performance
+- **Advanced Filtering**: Filter analytics data by date range, department, and more
+- **Modular Architecture**: Well-organized code structure with component-based architecture
 
-**Use Lovable**
+## Project Structure
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/80a1c39c-fa88-4704-bd92-ea6e1fa63c6e) and start prompting.
+The project uses a modular architecture with the following structure:
 
-Changes made via Lovable will be committed automatically to this repo.
+- `/src/components`: Reusable UI components 
+- `/src/pages`: Main application pages
+- `/src/contexts`: React context providers (e.g., ThemeContext)
+- `/src/styles`: CSS styles organized by purpose:
+  - `base.css`: Core styles and Tailwind imports
+  - `theme/`: Light and dark theme variables
+  - `components/`: Component-specific styles
+  - `utilities.css`: Utility classes
 
-**Use your preferred IDE**
+## Tech Stack
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Frontend Framework**: React with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Routing**: React Router
+- **API Integration**: TanStack Query (React Query)
+- **Charts**: Recharts
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Getting Started
 
-Follow these steps:
+1. Clone the repository
+2. Install dependencies with `npm install`
+3. Start the development server with `npm run dev`
+4. Visit `http://localhost:5173` to see the application
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Development Guidelines
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- Keep components small and focused
+- Follow the established styling patterns using Tailwind CSS
+- Maintain theme consistency for both light and dark modes
+- Use TypeScript for type safety
+- Follow React best practices (custom hooks, context API, etc.)
+- Ensure responsive design for all screen sizes
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Deployment
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+The application can be deployed on any static hosting service like Vercel, Netlify, or GitHub Pages.
 
-**Edit a file directly in GitHub**
+## License
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/80a1c39c-fa88-4704-bd92-ea6e1fa63c6e) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+MIT
