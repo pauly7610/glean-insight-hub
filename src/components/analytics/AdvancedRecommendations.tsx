@@ -3,6 +3,14 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FileSearch, Clock, Users, TrendingUp } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselPrevious, 
+  CarouselNext 
+} from '@/components/ui/carousel';
 
 import RelatedContentTab from './recommendations/RelatedContentTab';
 import StaleContentTab from './recommendations/StaleContentTab';
@@ -20,6 +28,9 @@ interface AdvancedRecommendationsProps {
 }
 
 const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeRange = '30' }) => {
+  const isMobile = useIsMobile();
+  const [activeTab, setActiveTab] = React.useState('related');
+  
   return (
     <Card className="border-none shadow-lg">
       <CardHeader className="bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/10 dark:to-background">
@@ -29,27 +40,88 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
         </CardDescription>
       </CardHeader>
       <CardContent className="p-0">
-        <Tabs defaultValue="related" className="w-full">
-          <div className="px-6 pt-2 border-b">
-            <TabsList className="bg-muted/50">
-              <TabsTrigger value="related" className="data-[state=active]:bg-background">
-                <FileSearch className="h-4 w-4 mr-2" />
-                Related Content
-              </TabsTrigger>
-              <TabsTrigger value="stale" className="data-[state=active]:bg-background">
-                <Clock className="h-4 w-4 mr-2" />
-                Stale Content
-              </TabsTrigger>
-              <TabsTrigger value="cross-dept" className="data-[state=active]:bg-background">
-                <Users className="h-4 w-4 mr-2" />
-                Cross-Department
-              </TabsTrigger>
-              <TabsTrigger value="trending" className="data-[state=active]:bg-background">
-                <TrendingUp className="h-4 w-4 mr-2" />
-                Trending Searches
-              </TabsTrigger>
-            </TabsList>
-          </div>
+        <Tabs 
+          defaultValue="related" 
+          className="w-full"
+          value={activeTab}
+          onValueChange={setActiveTab}
+        >
+          {isMobile ? (
+            <div className="relative">
+              <Carousel
+                opts={{
+                  align: 'start',
+                  loop: false,
+                }}
+              >
+                <CarouselContent className="px-4 py-2">
+                  <CarouselItem className="basis-auto pl-2 pr-6">
+                    <TabsTrigger 
+                      value="related" 
+                      onClick={() => setActiveTab('related')}
+                      className={`data-[state=active]:bg-background flex items-center ${activeTab === 'related' ? 'border-b-2 border-primary' : ''}`}
+                    >
+                      <FileSearch className="h-4 w-4 mr-2" />
+                      Related
+                    </TabsTrigger>
+                  </CarouselItem>
+                  <CarouselItem className="basis-auto pl-1 pr-6">
+                    <TabsTrigger 
+                      value="stale" 
+                      onClick={() => setActiveTab('stale')}
+                      className={`data-[state=active]:bg-background flex items-center ${activeTab === 'stale' ? 'border-b-2 border-primary' : ''}`}
+                    >
+                      <Clock className="h-4 w-4 mr-2" />
+                      Stale
+                    </TabsTrigger>
+                  </CarouselItem>
+                  <CarouselItem className="basis-auto pl-1 pr-6">
+                    <TabsTrigger 
+                      value="cross-dept" 
+                      onClick={() => setActiveTab('cross-dept')}
+                      className={`data-[state=active]:bg-background flex items-center ${activeTab === 'cross-dept' ? 'border-b-2 border-primary' : ''}`}
+                    >
+                      <Users className="h-4 w-4 mr-2" />
+                      Cross-Dept
+                    </TabsTrigger>
+                  </CarouselItem>
+                  <CarouselItem className="basis-auto pl-1 pr-4">
+                    <TabsTrigger 
+                      value="trending" 
+                      onClick={() => setActiveTab('trending')}
+                      className={`data-[state=active]:bg-background flex items-center ${activeTab === 'trending' ? 'border-b-2 border-primary' : ''}`}
+                    >
+                      <TrendingUp className="h-4 w-4 mr-2" />
+                      Trending
+                    </TabsTrigger>
+                  </CarouselItem>
+                </CarouselContent>
+                <CarouselPrevious className="hidden md:flex" />
+                <CarouselNext className="hidden md:flex" />
+              </Carousel>
+            </div>
+          ) : (
+            <div className="px-6 pt-2 border-b">
+              <TabsList className="bg-muted/50">
+                <TabsTrigger value="related" className="data-[state=active]:bg-background">
+                  <FileSearch className="h-4 w-4 mr-2" />
+                  Related Content
+                </TabsTrigger>
+                <TabsTrigger value="stale" className="data-[state=active]:bg-background">
+                  <Clock className="h-4 w-4 mr-2" />
+                  Stale Content
+                </TabsTrigger>
+                <TabsTrigger value="cross-dept" className="data-[state=active]:bg-background">
+                  <Users className="h-4 w-4 mr-2" />
+                  Cross-Department
+                </TabsTrigger>
+                <TabsTrigger value="trending" className="data-[state=active]:bg-background">
+                  <TrendingUp className="h-4 w-4 mr-2" />
+                  Trending Searches
+                </TabsTrigger>
+              </TabsList>
+            </div>
+          )}
 
           <TabsContent value="related" className="animate-in fade-in-50 data-[state=inactive]:animate-out data-[state=inactive]:fade-out-0">
             <RelatedContentTab relatedContent={relatedContentData} />

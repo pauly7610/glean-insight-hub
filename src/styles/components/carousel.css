@@ -1,0 +1,29 @@
+
+@layer components {
+  .carousel-container {
+    @apply relative w-full;
+  }
+  
+  .carousel-nav-button {
+    @apply flex h-8 w-8 items-center justify-center rounded-full bg-background/80 shadow-md transition-all;
+  }
+
+  .carousel-tab-indicator {
+    @apply absolute bottom-0 left-0 h-0.5 bg-primary transition-all;
+  }
+  
+  /* Mobile-specific styles */
+  @media (max-width: 768px) {
+    .carousel-nav-button {
+      @apply opacity-70 hover:opacity-100;
+    }
+    
+    .carousel-content {
+      @apply px-1;
+    }
+    
+    .carousel-item {
+      @apply touch-pan-y;
+    }
+  }
+}
