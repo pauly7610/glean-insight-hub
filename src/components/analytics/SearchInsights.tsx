@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -39,16 +38,16 @@ const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
     { term: "slack channel guidelines", count: 9, users: 7, suggestion: "Create IT documentation" }
   ];
 
-  // Chart data for top searches
+  // Chart data for top searches - updated with better color
   const chartData = {
     labels: topSearches.slice(0, 10).map((search) => search.term),
     datasets: [
       {
         label: 'Search Count',
         data: topSearches.slice(0, 10).map((search) => search.count),
-        backgroundColor: 'rgba(155, 135, 245, 0.6)',
-        borderColor: 'rgb(155, 135, 245)',
-        borderWidth: 1
+        backgroundColor: '#9b87f5',
+        borderColor: '#7E69AB',
+        borderWidth: 0
       }
     ]
   };
@@ -64,7 +63,7 @@ const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
         </CardHeader>
         <CardContent>
           <div className="h-80">
-            <BarChart data={chartData} />
+            <BarChart data={chartData} height={250} />
           </div>
         </CardContent>
       </Card>
