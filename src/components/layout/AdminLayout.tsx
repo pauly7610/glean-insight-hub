@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -37,9 +38,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-light-gray">
+    <div className="min-h-screen bg-light-gray dark:bg-[#1A1F2C]">
       {/* Top navigation */}
-      <header className="bg-white border-b border-border shadow-[var(--shadow-sm)] sticky top-0 z-10">
+      <header className="bg-white dark:bg-[#221F26] border-b border-border shadow-[var(--shadow-sm)] sticky top-0 z-10">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="text-xl font-bold text-primary flex items-center gap-2">
@@ -52,7 +53,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             <div className="hidden md:flex items-center relative ml-6">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input 
-                className="pl-9 w-[240px] bg-light-gray border-0 focus-visible:ring-1 focus-visible:ring-primary/20 transition-all"
+                className="pl-9 w-[240px] bg-light-gray dark:bg-sidebar-accent border-0 focus-visible:ring-1 focus-visible:ring-primary/20 transition-all"
                 placeholder="Search..."
               />
             </div>
@@ -66,8 +67,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                 className={cn(
                   "flex items-center px-3 py-2 rounded-lg text-sm font-medium gap-1.5 transition-all",
                   item.path === location.pathname
-                    ? "bg-primary-light text-primary"
-                    : "text-text-secondary hover:bg-light-gray hover:text-text-primary"
+                    ? "bg-primary-light dark:bg-accent text-primary dark:text-accent-foreground"
+                    : "text-text-secondary hover:bg-light-gray dark:hover:bg-sidebar-accent hover:text-text-primary dark:hover:text-foreground"
                 )}
               >
                 {item.icon}
@@ -77,11 +78,13 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           </nav>
           
           <div className="flex items-center space-x-1">
-            <Button variant="ghost" size="icon" className="rounded-full text-text-secondary hover:text-text-primary hover:bg-light-gray">
+            <ThemeToggle />
+            
+            <Button variant="ghost" size="icon" className="rounded-full text-text-secondary hover:text-text-primary hover:bg-light-gray dark:hover:bg-sidebar-accent">
               <Bell className="h-5 w-5" />
             </Button>
             
-            <Button variant="ghost" size="icon" className="rounded-full text-text-secondary hover:text-text-primary hover:bg-light-gray">
+            <Button variant="ghost" size="icon" className="rounded-full text-text-secondary hover:text-text-primary hover:bg-light-gray dark:hover:bg-sidebar-accent">
               <HelpCircle className="h-5 w-5" />
             </Button>
 
@@ -90,7 +93,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                 <Button variant="ghost" className="relative h-9 w-9 rounded-full ml-1">
                   <Avatar className="h-9 w-9 border border-border">
                     <AvatarImage src="/placeholder.svg" alt="User" />
-                    <AvatarFallback className="bg-mid-gray text-secondary font-medium">AD</AvatarFallback>
+                    <AvatarFallback className="bg-mid-gray dark:bg-sidebar-accent text-secondary dark:text-foreground font-medium">AD</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>

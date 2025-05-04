@@ -11,6 +11,7 @@ import Analytics from "./pages/Analytics";
 import Users from "./pages/Users";
 import Settings from "./pages/Settings";
 import AdminLayout from "./components/layout/AdminLayout";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
@@ -20,19 +21,21 @@ const App = () => {
   return (
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<AdminLayout><Index /></AdminLayout>} />
-              <Route path="/analytics" element={<AdminLayout><Analytics /></AdminLayout>} />
-              <Route path="/users" element={<AdminLayout><Users /></AdminLayout>} />
-              <Route path="/settings" element={<AdminLayout><Settings /></AdminLayout>} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
+        <ThemeProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<AdminLayout><Index /></AdminLayout>} />
+                <Route path="/analytics" element={<AdminLayout><Analytics /></AdminLayout>} />
+                <Route path="/users" element={<AdminLayout><Users /></AdminLayout>} />
+                <Route path="/settings" element={<AdminLayout><Settings /></AdminLayout>} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </ThemeProvider>
       </QueryClientProvider>
     </React.StrictMode>
   );
