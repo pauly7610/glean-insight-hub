@@ -4,8 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { ArrowRight, TrendingUp, Clock, Users, FileSearch } from 'lucide-react';
+import { ArrowRight, TrendingUp, Clock, Users, FileSearch, CheckCircle, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 interface AdvancedRecommendationsProps {
   timeRange?: string;
@@ -17,32 +18,32 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
     {
       sourceContent: "Product Roadmap Q2",
       relatedItems: [
-        { title: "Q2 OKRs", accessRate: 78, department: "Product" },
-        { title: "Engineering Sprint Planning", accessRate: 65, department: "Engineering" }
+        { title: "Q2 OKRs", accessRate: 78, department: "Product", actionTaken: false },
+        { title: "Engineering Sprint Planning", accessRate: 65, department: "Engineering", actionTaken: false }
       ]
     },
     {
       sourceContent: "Sales Training Materials",
       relatedItems: [
-        { title: "Customer Objection Handling", accessRate: 82, department: "Sales" },
-        { title: "Pricing Strategy", accessRate: 71, department: "Marketing" }
+        { title: "Customer Objection Handling", accessRate: 82, department: "Sales", actionTaken: true },
+        { title: "Pricing Strategy", accessRate: 71, department: "Marketing", actionTaken: false }
       ]
     },
     {
       sourceContent: "Employee Onboarding Guide",
       relatedItems: [
-        { title: "Company Benefits Overview", accessRate: 92, department: "HR" },
-        { title: "IT Setup Instructions", accessRate: 88, department: "IT" }
+        { title: "Company Benefits Overview", accessRate: 92, department: "HR", actionTaken: false },
+        { title: "IT Setup Instructions", accessRate: 88, department: "IT", actionTaken: true }
       ]
     }
   ];
 
   // Mock data for stale content
   const staleContent = [
-    { title: "Legacy Product Documentation", lastUpdated: "2023-10-15", accessCount: 3, department: "Product" },
-    { title: "Old Marketing Campaign Guidelines", lastUpdated: "2023-08-22", accessCount: 5, department: "Marketing" },
-    { title: "Previous Quarter Financial Report", lastUpdated: "2024-01-10", accessCount: 7, department: "Finance" },
-    { title: "Outdated Sales Scripts", lastUpdated: "2023-11-05", accessCount: 2, department: "Sales" }
+    { title: "Legacy Product Documentation", lastUpdated: "2023-10-15", accessCount: 3, department: "Product", priority: "high" },
+    { title: "Old Marketing Campaign Guidelines", lastUpdated: "2023-08-22", accessCount: 5, department: "Marketing", priority: "medium" },
+    { title: "Previous Quarter Financial Report", lastUpdated: "2024-01-10", accessCount: 7, department: "Finance", priority: "medium" },
+    { title: "Outdated Sales Scripts", lastUpdated: "2023-11-05", accessCount: 2, department: "Sales", priority: "high" }
   ];
 
   // Mock data for cross-departmental opportunities
@@ -52,30 +53,33 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
       primaryDept: "Engineering", 
       targetDept: "Sales", 
       relevance: "high",
-      relatedSearches: ["technical specs", "API capabilities", "integration options"]
+      relatedSearches: ["technical specs", "API capabilities", "integration options"],
+      actionRequired: "Share with Sales team"
     },
     { 
       content: "Customer Persona Research", 
       primaryDept: "Marketing", 
       targetDept: "Product", 
       relevance: "medium",
-      relatedSearches: ["user needs", "customer profiles", "market segments"] 
+      relatedSearches: ["user needs", "customer profiles", "market segments"],
+      actionRequired: "Use in next product planning" 
     },
     { 
       content: "Pricing Strategy", 
       primaryDept: "Sales", 
       targetDept: "Customer Success", 
       relevance: "high",
-      relatedSearches: ["pricing tiers", "discount policy", "enterprise pricing"] 
+      relatedSearches: ["pricing tiers", "discount policy", "enterprise pricing"],
+      actionRequired: "Schedule cross-team workshop" 
     }
   ];
 
   // Mock data for trending searches
   const trendingSearches = [
-    { term: "new product launch", increase: "+325%", lastHours: 24, department: "Marketing" },
-    { term: "system outage", increase: "+270%", lastHours: 12, department: "Engineering" },
-    { term: "quarterly review template", increase: "+180%", lastHours: 36, department: "All" },
-    { term: "employee feedback form", increase: "+135%", lastHours: 48, department: "HR" }
+    { term: "new product launch", increase: "+325%", lastHours: 24, department: "Marketing", actionRequired: "Create FAQ document" },
+    { term: "system outage", increase: "+270%", lastHours: 12, department: "Engineering", actionRequired: "Publish status update" },
+    { term: "quarterly review template", increase: "+180%", lastHours: 36, department: "All", actionRequired: "Update template" },
+    { term: "employee feedback form", increase: "+135%", lastHours: 48, department: "HR", actionRequired: "Create knowledge base article" }
   ];
 
   return (
@@ -117,13 +121,25 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
                 <div className="space-y-2">
                   {item.relatedItems.map((related, idx) => (
                     <div key={idx} className="flex items-center justify-between bg-background p-3 rounded-md">
-                      <div>
+                      <div className="flex-1">
                         <p className="text-sm font-medium">{related.title}</p>
                         <p className="text-xs text-muted-foreground">{related.department}</p>
                       </div>
-                      <Badge variant="secondary">
-                        {related.accessRate}% related
-                      </Badge>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="secondary">
+                          {related.accessRate}% related
+                        </Badge>
+                        {related.actionTaken ? (
+                          <Badge variant="outline" className="bg-green-500/10 text-green-600 border-green-200">
+                            <CheckCircle className="h-3 w-3 mr-1" />
+                            Linked
+                          </Badge>
+                        ) : (
+                          <Button size="sm" variant="outline" className="text-xs h-7">
+                            Link Resources
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -145,7 +161,8 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
                   <TableHead>Content Title</TableHead>
                   <TableHead>Last Updated</TableHead>
                   <TableHead>Recent Views</TableHead>
-                  <TableHead>Department</TableHead>
+                  <TableHead>Priority</TableHead>
+                  <TableHead className="text-right">Action</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -154,7 +171,24 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
                     <TableCell className="font-medium">{item.title}</TableCell>
                     <TableCell>{item.lastUpdated}</TableCell>
                     <TableCell>{item.accessCount}</TableCell>
-                    <TableCell>{item.department}</TableCell>
+                    <TableCell>
+                      <Badge 
+                        variant={item.priority === "high" ? "destructive" : "outline"}
+                        className={item.priority === "medium" ? "bg-amber-500/20 text-amber-700 border-amber-200" : ""}
+                      >
+                        {item.priority === "high" ? "High priority" : "Medium priority"}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <Button size="sm" variant="outline" className="text-xs h-7">
+                          Update
+                        </Button>
+                        <Button size="sm" variant="outline" className="text-xs h-7 text-red-600 hover:text-red-700">
+                          Archive
+                        </Button>
+                      </div>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -195,6 +229,12 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
                     ))}
                   </div>
                 </div>
+                <div className="mt-3 flex justify-between items-center">
+                  <p className="text-sm font-medium text-primary">Recommended action: {item.actionRequired}</p>
+                  <Button size="sm" className="text-xs h-7">
+                    Take Action <ExternalLink className="ml-1 h-3 w-3" />
+                  </Button>
+                </div>
               </div>
             ))}
             <div className="text-center pt-2">
@@ -216,9 +256,14 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
                       {item.department} • Last {item.lastHours} hours
                     </p>
                   </div>
-                  <Badge className="bg-amber-500">
-                    {item.increase}
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge className="bg-amber-500">
+                      {item.increase}
+                    </Badge>
+                    <Button size="sm" variant="outline" className="text-xs h-7">
+                      {item.actionRequired}
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>
