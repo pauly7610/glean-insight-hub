@@ -5,6 +5,7 @@ import TrendingSearchTerms from './TrendingSearchTerms';
 import ContentRecommendations from './ContentRecommendations';
 import DepartmentComparison from './DepartmentComparison';
 import AdvancedFilters from './AdvancedFilters';
+import { DateRange } from 'react-day-picker';
 
 interface SearchInsightsProps {
   timeRange: string;
@@ -12,7 +13,7 @@ interface SearchInsightsProps {
 
 const SearchInsights: React.FC<SearchInsightsProps> = ({ timeRange }) => {
   const [filters, setFilters] = useState({
-    dateRange: { from: undefined, to: undefined },
+    dateRange: { from: undefined, to: undefined } as DateRange,
     department: 'all'
   });
 
