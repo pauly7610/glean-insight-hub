@@ -1,5 +1,5 @@
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FileSearch, Clock, Users, TrendingUp } from 'lucide-react';
@@ -29,9 +29,15 @@ interface AdvancedRecommendationsProps {
 
 const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeRange = '30' }) => {
   const isMobile = useIsMobile();
-  const [activeTab, setActiveTab] = React.useState('related');
+  const [activeTab, setActiveTab] = useState('related');
   const tabIndicatorRef = useRef<HTMLDivElement>(null);
   const tabsContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Force a rerender when isMobile value changes
+  const [rerender, setRerender] = useState(0);
+  useEffect(() => {
+    setRerender(prev => prev + 1);
+  }, [isMobile]);
   
   // Update tab indicator position based on active tab
   useEffect(() => {
@@ -44,9 +50,12 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
         
         tabIndicatorRef.current.style.width = `${tabWidth}px`;
         tabIndicatorRef.current.style.transform = `translateX(${tabLeft}px)`;
+        
+        // Make sure the tab indicator is visible
+        tabIndicatorRef.current.style.display = 'block';
       }
     }
-  }, [activeTab, isMobile]);
+  }, [activeTab, isMobile, rerender]);
   
   return (
     <Card className="border-none shadow-lg">
@@ -64,7 +73,7 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
           onValueChange={setActiveTab}
         >
           {isMobile ? (
-            <div className="relative" ref={tabsContainerRef}>
+            <div className="relative overflow-visible" ref={tabsContainerRef}>
               <Carousel
                 opts={{
                   align: 'start',

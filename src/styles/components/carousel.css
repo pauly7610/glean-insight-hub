@@ -23,7 +23,12 @@
     }
     
     .carousel-item {
-      @apply touch-pan-y;
+      @apply touch-pan-y touch-pan-x;
+    }
+
+    /* Ensure tab indicator is visible */
+    .carousel-tab-indicator {
+      @apply h-0.5 bg-primary;
     }
   }
 }
