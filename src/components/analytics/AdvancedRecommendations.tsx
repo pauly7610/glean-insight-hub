@@ -83,48 +83,60 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
               >
                 <CarouselContent className="px-4 py-2">
                   <CarouselItem className="basis-auto pl-2 pr-6">
-                    <TabsTrigger 
-                      value="related" 
+                    <button
                       onClick={() => setActiveTab('related')}
-                      className="data-[state=active]:bg-background flex items-center"
+                      className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
+                        activeTab === 'related' 
+                          ? 'bg-background text-foreground shadow-sm' 
+                          : 'text-muted-foreground hover:bg-muted/50'
+                      }`}
                       data-value="related"
                     >
                       <FileSearch className="h-4 w-4 mr-2" />
                       Related
-                    </TabsTrigger>
+                    </button>
                   </CarouselItem>
                   <CarouselItem className="basis-auto pl-1 pr-6">
-                    <TabsTrigger 
-                      value="stale" 
+                    <button
                       onClick={() => setActiveTab('stale')}
-                      className="data-[state=active]:bg-background flex items-center"
+                      className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
+                        activeTab === 'stale' 
+                          ? 'bg-background text-foreground shadow-sm' 
+                          : 'text-muted-foreground hover:bg-muted/50'
+                      }`}
                       data-value="stale"
                     >
                       <Clock className="h-4 w-4 mr-2" />
                       Stale
-                    </TabsTrigger>
+                    </button>
                   </CarouselItem>
                   <CarouselItem className="basis-auto pl-1 pr-6">
-                    <TabsTrigger 
-                      value="cross-dept" 
+                    <button
                       onClick={() => setActiveTab('cross-dept')}
-                      className="data-[state=active]:bg-background flex items-center"
+                      className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
+                        activeTab === 'cross-dept' 
+                          ? 'bg-background text-foreground shadow-sm' 
+                          : 'text-muted-foreground hover:bg-muted/50'
+                      }`}
                       data-value="cross-dept"
                     >
                       <Users className="h-4 w-4 mr-2" />
                       Cross-Dept
-                    </TabsTrigger>
+                    </button>
                   </CarouselItem>
                   <CarouselItem className="basis-auto pl-1 pr-4">
-                    <TabsTrigger 
-                      value="trending" 
+                    <button
                       onClick={() => setActiveTab('trending')}
-                      className="data-[state=active]:bg-background flex items-center"
+                      className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
+                        activeTab === 'trending' 
+                          ? 'bg-background text-foreground shadow-sm' 
+                          : 'text-muted-foreground hover:bg-muted/50'
+                      }`}
                       data-value="trending"
                     >
                       <TrendingUp className="h-4 w-4 mr-2" />
                       Trending
-                    </TabsTrigger>
+                    </button>
                   </CarouselItem>
                 </CarouselContent>
               </Carousel>
