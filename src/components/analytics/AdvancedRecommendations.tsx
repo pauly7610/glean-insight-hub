@@ -28,34 +28,7 @@ interface AdvancedRecommendationsProps {
 }
 
 const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeRange = '30' }) => {
-  const isMobile = useIsMobile();
   const [activeTab, setActiveTab] = useState('related');
-  const tabIndicatorRef = useRef<HTMLDivElement>(null);
-  const tabsContainerRef = useRef<HTMLDivElement>(null);
-  
-  // Force a rerender when isMobile value changes
-  const [rerender, setRerender] = useState(0);
-  useEffect(() => {
-    setRerender(prev => prev + 1);
-  }, [isMobile]);
-  
-  // Update tab indicator position based on active tab
-  useEffect(() => {
-    if (isMobile && tabIndicatorRef.current && tabsContainerRef.current) {
-      const activeTabElement = tabsContainerRef.current.querySelector(`[data-value="${activeTab}"]`);
-      
-      if (activeTabElement) {
-        const tabLeft = (activeTabElement as HTMLElement).offsetLeft;
-        const tabWidth = (activeTabElement as HTMLElement).offsetWidth;
-        
-        tabIndicatorRef.current.style.width = `${tabWidth}px`;
-        tabIndicatorRef.current.style.transform = `translateX(${tabLeft}px)`;
-        
-        // Make sure the tab indicator is visible
-        tabIndicatorRef.current.style.display = 'block';
-      }
-    }
-  }, [activeTab, isMobile, rerender]);
   
   return (
     <Card className="border-none shadow-lg">
@@ -72,98 +45,30 @@ const AdvancedRecommendations: React.FC<AdvancedRecommendationsProps> = ({ timeR
           value={activeTab}
           onValueChange={setActiveTab}
         >
-          {isMobile ? (
-            <div className="relative overflow-visible" ref={tabsContainerRef}>
-              <Carousel
-                opts={{
-                  align: 'start',
-                  loop: false,
-                  dragFree: true
-                }}
-              >
-                <CarouselContent className="px-4 py-2">
-                  <CarouselItem className="basis-auto pl-2 pr-6">
-                    <button
-                      onClick={() => setActiveTab('related')}
-                      className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
-                        activeTab === 'related' 
-                          ? 'bg-background text-foreground shadow-sm' 
-                          : 'text-muted-foreground hover:bg-muted/50'
-                      }`}
-                      data-value="related"
-                    >
-                      <FileSearch className="h-4 w-4 mr-2" />
-                      Related
-                    </button>
-                  </CarouselItem>
-                  <CarouselItem className="basis-auto pl-1 pr-6">
-                    <button
-                      onClick={() => setActiveTab('stale')}
-                      className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
-                        activeTab === 'stale' 
-                          ? 'bg-background text-foreground shadow-sm' 
-                          : 'text-muted-foreground hover:bg-muted/50'
-                      }`}
-                      data-value="stale"
-                    >
-                      <Clock className="h-4 w-4 mr-2" />
-                      Stale
-                    </button>
-                  </CarouselItem>
-                  <CarouselItem className="basis-auto pl-1 pr-6">
-                    <button
-                      onClick={() => setActiveTab('cross-dept')}
-                      className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
-                        activeTab === 'cross-dept' 
-                          ? 'bg-background text-foreground shadow-sm' 
-                          : 'text-muted-foreground hover:bg-muted/50'
-                      }`}
-                      data-value="cross-dept"
-                    >
-                      <Users className="h-4 w-4 mr-2" />
-                      Cross-Dept
-                    </button>
-                  </CarouselItem>
-                  <CarouselItem className="basis-auto pl-1 pr-4">
-                    <button
-                      onClick={() => setActiveTab('trending')}
-                      className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
-                        activeTab === 'trending' 
-                          ? 'bg-background text-foreground shadow-sm' 
-                          : 'text-muted-foreground hover:bg-muted/50'
-                      }`}
-                      data-value="trending"
-                    >
-                      <TrendingUp className="h-4 w-4 mr-2" />
-                      Trending
-                    </button>
-                  </CarouselItem>
-                </CarouselContent>
-              </Carousel>
-              <div className="carousel-tab-indicator" ref={tabIndicatorRef} />
-            </div>
-          ) : (
-            <div className="px-6 pt-2 border-b">
-              <TabsList className="bg-muted/50">
-                <TabsTrigger value="related" className="data-[state=active]:bg-background">
-                  <FileSearch className="h-4 w-4 mr-2" />
-                  Related Content
-                </TabsTrigger>
-                <TabsTrigger value="stale" className="data-[state=active]:bg-background">
-                  <Clock className="h-4 w-4 mr-2" />
-                  Stale Content
-                </TabsTrigger>
-                <TabsTrigger value="cross-dept" className="data-[state=active]:bg-background">
-                  <Users className="h-4 w-4 mr-2" />
-                  Cross-Department
-                </TabsTrigger>
-                <TabsTrigger value="trending" className="data-[state=active]:bg-background">
-                  <TrendingUp className="h-4 w-4 mr-2" />
-                  Trending Searches
-                </TabsTrigger>
-              </TabsList>
-            </div>
-          )}
+          <div className="px-6 pt-2 border-b">
+            <TabsList className="bg-muted/50 w-full justify-start overflow-x-auto">
+              <TabsTrigger value="related" className="data-[state=active]:bg-background whitespace-nowrap">
+                <FileSearch className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline">Related Content</span>
+                <span className="sm:hidden">Related</span>
+              </TabsTrigger>
+              <TabsTrigger value="stale" className="data-[state=active]:bg-background whitespace-nowrap">
+                <Clock className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline">Stale Content</span>
+                <span className="sm:hidden">Stale</span>
+              </TabsTrigger>
+              <TabsTrigger value="cross-dept" className="data-[state=active]:bg-background whitespace-nowrap">
+                <Users className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline">Cross-Department</span>
+                <span className="sm:hidden">Cross-Dept</span>
+              </TabsTrigger>
+              <TabsTrigger value="trending" className="data-[state=active]:bg-background whitespace-nowrap">
+                <TrendingUp className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline">Trending Searches</span>
+                <span className="sm:hidden">Trending</span>
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           <TabsContent value="related" className="animate-in fade-in-50 data-[state=inactive]:animate-out data-[state=inactive]:fade-out-0">
             <RelatedContentTab relatedContent={relatedContentData} />
